@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.lang.Math;
 
 import comm.AssetMgr;
 
@@ -150,39 +151,70 @@ public class meanComplex implements strateguInterface {
 			FileWriter fileWriter = new FileWriter(file, true);
 			fileWriter.write("\r\n	start ["+ tableName + "] \r\n\r\n");
 			for(int index = size - 5; index <= size ; index ++){
-				float priceToday = price.get(index);
-				boolean buySingle = getBuySingle(index);		
-				boolean sellSingle = getSellSingle(index);
-				if(buySingle){
-					String LogInfo = date.get(index) + ":	[buy]	'" + tableName + "'| price = " + priceToday + 
-							"	short = "+ shortMean_nDay.get(index) + 
-							"	mid = "+ midMean_nDay.get(index) + 
-							"	long = "+ longMean_nDay.get(index) + "\r\n";
-					System.out.println (LogInfo);
-					fileWriter.write(LogInfo);
-				}
-				else if(sellSingle){
-					String LogInfo = date.get(index) + ":	<sell>	'"+ tableName + "'| price = " + priceToday + 
-							"	short = "+ shortMean_nDay.get(index) + 
-							"	mid = "+ midMean_nDay.get(index) + 
-							"	long = "+ longMean_nDay.get(index) + "\r\n";
-					System.out.println (LogInfo);
-					fileWriter.write(LogInfo);
-				}
-				else{
-					String LogInfo = date.get(index) + ":	nothing	'"+ tableName + "'| price = " + priceToday + 
-							"	short = "+ shortMean_nDay.get(index) + 
-							"	mid = "+ midMean_nDay.get(index) + 
-							"	long = "+ longMean_nDay.get(index) + "\r\n";
-					System.out.println (LogInfo);
-					fileWriter.write(LogInfo);
-				}
+				strategyResult(date, tableName, fileWriter, index);
 			}
+			
+			
+			tomorrowSuggest(size, fileWriter);
+			
 			fileWriter.close(); 
 	    }
 		catch (Exception e) {   
 	        e.printStackTrace();  
 	    }
+	}
+
+
+
+	private void tomorrowSuggest(int size, FileWriter fileWriter)
+			throws IOException {
+		float shortMean =  shortMean_nDay.get(size);
+		float midMean =  midMean_nDay.get(size);
+		float longMean =  longMean_nDay.get(size);
+		
+		float buyPriceTmp = Math.min(midMean, longMean);
+		float buyPrice = Math.max(shortMean, buyPriceTmp);
+		
+		float sellPriceTmp = Math.max(midMean, longMean);
+		float sellPrice = Math.min(shortMean, sellPriceTmp);
+		
+		String LogInfo = "\r\n" + "[buy price] = " + buyPrice  + "\r\n" + 
+		                          "[sell price] = " + sellPrice + "\r\n";
+		System.out.println (LogInfo);
+		fileWriter.write(LogInfo);
+	}
+
+
+
+	private void strategyResult(List<String> date, String tableName,
+			FileWriter fileWriter, int index) throws IOException {
+		float priceToday = price.get(index);
+		boolean buySingle = getBuySingle(index);		
+		boolean sellSingle = getSellSingle(index);
+		if(buySingle){
+			String LogInfo = date.get(index) + ":	[buy]	'" + tableName + "'| price = " + priceToday + 
+					"	short = "+ shortMean_nDay.get(index) + 
+					"	mid = "+ midMean_nDay.get(index) + 
+					"	long = "+ longMean_nDay.get(index) + "\r\n";
+			System.out.println (LogInfo);
+			fileWriter.write(LogInfo);
+		}
+		else if(sellSingle){
+			String LogInfo = date.get(index) + ":	<sell>	'"+ tableName + "'| price = " + priceToday + 
+					"	short = "+ shortMean_nDay.get(index) + 
+					"	mid = "+ midMean_nDay.get(index) + 
+					"	long = "+ longMean_nDay.get(index) + "\r\n";
+			System.out.println (LogInfo);
+			fileWriter.write(LogInfo);
+		}
+		else{
+			String LogInfo = date.get(index) + ":	nothing	'"+ tableName + "'| price = " + priceToday + 
+					"	short = "+ shortMean_nDay.get(index) + 
+					"	mid = "+ midMean_nDay.get(index) + 
+					"	long = "+ longMean_nDay.get(index) + "\r\n";
+			System.out.println (LogInfo);
+			fileWriter.write(LogInfo);
+		}
 	}
 	
 	
