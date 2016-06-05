@@ -39,7 +39,7 @@ public class meanComplex implements strateguInterface {
 	public meanComplex(float money){
 		asset.setMoney(money);
 		asset.setMode(asset.noOutput);
-		file = new File("C:/Users/lenovo/Desktop/trade_Log.txt"); 
+		file = new File("C:/Users/lili/Desktop/trade_Log.txt"); 
 		if(!file.exists())    
 		{    
 		    try {    
@@ -149,7 +149,7 @@ public class meanComplex implements strateguInterface {
 		
 		try{
 			FileWriter fileWriter = new FileWriter(file, true);
-			fileWriter.write("\r\n	start ["+ tableName + "] \r\n\r\n");
+			fileWriter.write("\r\nstart ["+ tableName + "] \r\n\r\n");
 			for(int index = size - 5; index <= size ; index ++){
 				strategyResult(date, tableName, fileWriter, index);
 			}

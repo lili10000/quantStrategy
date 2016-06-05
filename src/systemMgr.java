@@ -45,6 +45,7 @@ public class systemMgr {
 	//private mean strategy = new mean(moneyInit);
 	private meanComplex strategy = new meanComplex(moneyInit);
 
+	private List<String> stockName = new ArrayList<String>();
 	
 	public void run() {
 		
@@ -62,7 +63,7 @@ public class systemMgr {
 		else{
 			tableName = stockPool.getStockChoise();
 		}
-		
+		getStockName_CN(tableName);
 		//queryTableName(tableName);
 		
 		initMemoryData(tableName);
@@ -157,9 +158,10 @@ public class systemMgr {
 		//report.setHeadInfo("[MeanComplex] anaylze data: we calc data num:	"+ size + "	");
 		for(int index = 0 ; index < size; index ++){
  			String tableNameTmp = tableName.get(index);
+ 			String stockNameTmp = stockName.get(index);
 			strategy.init(moneyInit);
 			priceAndDate obj = code_price_map.get(tableNameTmp);	
-			strategy.calcAllToday(obj.inputData, obj.date, tableNameTmp);
+			strategy.calcAllToday(obj.inputData, obj.date, stockNameTmp);
 		}
 	}
 
@@ -267,7 +269,32 @@ public class systemMgr {
 		}
 		connectHandler.disConnect();
 	}
+private void getStockName_CN(List<String> tableName) {
+		
+		int count = tableName.size();
+		
+		for(int index = 0; index < count; index ++){
+			String tmp[] = tableName.get(index).split("k_d_"); 
+			String name = "名称";
+			String code = "代码";
+			String codeInput = tmp[1];
 
+			String SQL ="select 名称  from basics where  ( 代码 like '" + codeInput + "');";
+
+			
+			ResultSet retn = comm.query(SQL);
+			try{
+				while(retn.next()){
+					stockName.add(retn.getString("名称"));
+				}
+			}
+			catch(SQLException e) {   
+				e.printStackTrace();   
+			} catch(Exception e) {   
+				e.printStackTrace();   
+			}
+		}	
+	}
 	private void analyseData(String tableNameTmp) {
 		strategy.init(moneyInit);
 		

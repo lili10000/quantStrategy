@@ -25,7 +25,7 @@ public class statisticMgr {
 	
 	private int myMode = onlyWriteFile;
 	
-	File file = new File("C:/Users/lenovo/Desktop/quantReport.txt");
+	File file = new File("C:/Users/lili/Desktop/quantReport.txt");
 	
 	public statisticMgr(){
         try {

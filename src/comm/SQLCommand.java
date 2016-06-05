@@ -16,7 +16,7 @@ public class SQLCommand {
     
     private String url = "jdbc:mysql://localhost:3306/stockdb?useUnicode=true&characterEncoding=UTF-8";
     private String user = "root";
-    private String password = "123456";
+    private String password = "861217";
     private Statement statement;
 
 	public SQLCommand(String url, String user, String password){
