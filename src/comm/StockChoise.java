@@ -23,24 +23,19 @@ public class StockChoise {
 	}
 	private void myselfStock(){
 		//自持有
-		StockChoise.add("k_d_601166");
-		StockChoise.add("k_d_000970");
-		StockChoise.add("k_d_600886");		
-		StockChoise.add("k_d_600196");
-
-		StockChoise.add("k_d_300146");
-		StockChoise.add("k_d_002053");
+		StockChoise.add("k_d_600309");
+		StockChoise.add("k_d_300124");
+		StockChoise.add("k_d_002169");
 		
-//		StockChoise.add("k_d_600535");
-//		StockChoise.add("k_d_600309");
-//		StockChoise.add("k_d_002039");
-//		StockChoise.add("k_d_601985");
-//		StockChoise.add("k_d_600252");
-//		StockChoise.add("k_d_600000");
-//		StockChoise.add("k_d_300015");
-//		StockChoise.add("k_d_603288");
-//		StockChoise.add("k_d_600763");
-//		StockChoise.add("k_d_000623");
+		StockChoise.add("k_d_600196");
+		StockChoise.add("k_d_300146");
+		StockChoise.add("k_d_600535");		
+		StockChoise.add("k_d_600519");
+
+		StockChoise.add("k_d_600674");
+		StockChoise.add("k_d_002053");
+		StockChoise.add("k_d_000970");
+
 	}
 	
 	

@@ -14,7 +14,9 @@ public class meanComplex implements strateguInterface {
 	private int midDay = 30;
 	private int longDay = 60;
 	
-
+	private boolean have_buy = false;
+	private boolean have_sell = false;
+	
 	public void setnDay(int shortDay, int midDay,int longDay) {
 		this.shortDay = shortDay;
 		this.midDay = midDay;
@@ -39,7 +41,7 @@ public class meanComplex implements strateguInterface {
 	public meanComplex(float money){
 		asset.setMoney(money);
 		asset.setMode(asset.noOutput);
-		file = new File("C:/Users/lili/Desktop/trade_Log.txt"); 
+		file = new File("C:/Users/Administrator/Desktop/开发/trade_Log.txt"); 
 		if(!file.exists())    
 		{    
 		    try {    
@@ -189,9 +191,11 @@ public class meanComplex implements strateguInterface {
 	private void strategyResult(List<String> date, String tableName,
 			FileWriter fileWriter, int index) throws IOException {
 		float priceToday = price.get(index);
-		boolean buySingle = getBuySingle(index);		
-		boolean sellSingle = getSellSingle(index);
+		boolean buySingle = getBuySingle(index) && !have_buy;		
+		boolean sellSingle = getSellSingle(index) && !have_sell;
 		if(buySingle){
+			have_sell = false;
+			have_buy = true;
 			String LogInfo = date.get(index) + ":	[buy]	'" + tableName + "'| price = " + priceToday + 
 					"	short = "+ shortMean_nDay.get(index) + 
 					"	mid = "+ midMean_nDay.get(index) + 
@@ -200,6 +204,8 @@ public class meanComplex implements strateguInterface {
 			fileWriter.write(LogInfo);
 		}
 		else if(sellSingle){
+			have_sell = true;
+			have_buy = false;
 			String LogInfo = date.get(index) + ":	<sell>	'"+ tableName + "'| price = " + priceToday + 
 					"	short = "+ shortMean_nDay.get(index) + 
 					"	mid = "+ midMean_nDay.get(index) + 
