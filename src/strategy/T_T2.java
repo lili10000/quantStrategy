@@ -50,8 +50,8 @@ public class T_T2 implements strateguInterface {
 	}
 	
 	
-	public void setTday(int t_day){
-		T_day = t_day;
+	public void setDay(int day){
+		T_day = day;
 	}
 	
 	@Override
@@ -80,7 +80,7 @@ public class T_T2 implements strateguInterface {
 
 		for (int index = 0 ; index < size; index++){
 			float T_dayTmp = getMeanPrice(size, index, T_day);
-			float T2_dayTmp = getMeanPrice(size, index, 2*T_day);
+			float T2_dayTmp = getMeanPrice(size, index, T_day+5);
 			T_nDay.add(T_dayTmp);
 			T2_nDay.add(T2_dayTmp);
 		}

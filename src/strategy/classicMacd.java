@@ -27,6 +27,7 @@ public class classicMacd implements strateguInterface {
 		myDate.clear();
 	}
 	
+	public void setDay(int t_day){}
 	
 	public void calc(List<String> inputData, List<String> date){
 		

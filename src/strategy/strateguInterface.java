@@ -12,5 +12,7 @@ public interface strateguInterface {
 	public float getMoneyInc();
 	public float getPriceInc();
 	
+	public void setDay(int t_day);
+	
 	public void test();
 }

@@ -24,6 +24,8 @@ public class classicKDJ implements strateguInterface {
 		asset.setMode(asset.noOutput);		
 	}
 	
+	public void setDay(int t_day){}
+	
 	public void init(float money){
 		asset.setMoney(money);
 		moneyInc = 0;

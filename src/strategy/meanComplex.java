@@ -17,6 +17,8 @@ public class meanComplex implements strateguInterface {
 	private boolean have_buy = false;
 	private boolean have_sell = false;
 	
+	public void setDay(int day){}
+	
 	public void setnDay(int shortDay, int midDay,int longDay) {
 		this.shortDay = shortDay;
 		this.midDay = midDay;

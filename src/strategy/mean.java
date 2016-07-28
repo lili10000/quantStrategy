@@ -19,7 +19,8 @@ public class mean implements strateguInterface {
 	}
 
 
-	public void setnDay(int nDay) {
+
+	public void setDay(int day) {
 		this.nDay = nDay;
 	}
 

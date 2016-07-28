@@ -24,8 +24,8 @@ public class systemMgr {
 	
 	private final int allDate = 1;
 	private final String startDate = "2009-07-31";
-	private final int allCode = 0;
-	private final String codeType  = "k_d_%";
+	private final int allCode = 1;
+	private final String codeType  = "k_d_00%";
 	
 	private final int moneyInit = 100000;
 		
@@ -44,8 +44,8 @@ public class systemMgr {
 	//private strateguInterface strategy = new classicKDJ(moneyInit);
 	//private strateguInterface strategy = new mean(moneyInit);
 	//private mean strategy = new mean(moneyInit);
-	//private meanComplex strategy = new meanComplex(moneyInit);
-	private T_T2 strategy = new T_T2(moneyInit);
+	private meanComplex strategy = new meanComplex(moneyInit);
+	//private T_T2 strategy = new T_T2(moneyInit);
 
 	private List<String> stockName = new ArrayList<String>();
 	
@@ -74,10 +74,10 @@ public class systemMgr {
 		//Mean_calcToday(tableName, 4);
 		//Mean_calc(tableName);		
 		//MACD_calc(tableName);
-		//MeanComplex_calc(tableName);
+		MeanComplex_calc(tableName);
 		//MeanComplex_calcToday(tableName);
 		//MeanComplex_calcAllToday(tableName);
-		T_T2_calc(tableName);
+		//T_T2_calc(tableName);
 		
 		comm.disConnect();
 		System.out.println ("end work !! "); 
@@ -95,11 +95,11 @@ public class systemMgr {
 	private void getDataAndSaveInMap(String tableNameTmp) {
 		String sql;
 		if(allDate == 1){
-			sql = "select * from " + tableNameTmp ;
+			sql = "select * from " + tableNameTmp + " order by date ";
 		}
 		else{
 			sql = "select * from " + tableNameTmp
-				+ " where ( date > '" + startDate +"') ";
+				+ " where ( date > '" + startDate +"') order by date ";
 		}
 
 		ResultSet retn = comm.query(sql);
@@ -110,7 +110,7 @@ public class systemMgr {
 				tmp.date.add(retn.getString("date"));	
 			}
 			code_price_map.put(tableNameTmp, tmp);
-			//System.out.println ("recv data size = " + tmp.inputData.size()); 
+			System.out.println ("recv data size = " + tmp.inputData.size()); 
 		}
 		catch(SQLException e) {   
 			e.printStackTrace();   
@@ -173,7 +173,7 @@ public class systemMgr {
 					+ size + "	");
 			for(int index = 0 ; index < size; index ++){
 	 			String tableNameTmp = tableName.get(index);
-	 			strategy.setTday(day);
+	 			strategy.setDay(day);
 				analyseData(tableNameTmp);
 			}
 			report.getReport();
