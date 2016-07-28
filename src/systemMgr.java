@@ -99,15 +99,15 @@ public class systemMgr {
 		}
 		else{
 			sql = "select * from " + tableNameTmp
-				+ " where ( 日期 > '" + startDate +"') ";
+				+ " where ( date > '" + startDate +"') ";
 		}
 
 		ResultSet retn = comm.query(sql);
 		try{
 			priceAndDate tmp = new priceAndDate();
 			while(retn.next()){		
-				tmp.inputData.add(retn.getString("前复权价"));
-				tmp.date.add(retn.getString("日期"));	
+				tmp.inputData.add(retn.getString("close"));
+				tmp.date.add(retn.getString("date"));	
 			}
 			code_price_map.put(tableNameTmp, tmp);
 			//System.out.println ("recv data size = " + tmp.inputData.size()); 
