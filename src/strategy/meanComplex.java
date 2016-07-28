@@ -37,10 +37,9 @@ public class meanComplex implements strateguInterface {
 	private float priceInc = 0;
 	
 	private File file;
-	
 	public meanComplex(float money){
 		asset.setMoney(money);
-		asset.setMode(asset.noOutput);
+		asset.setMode(asset.outputAll);
 		file = new File("C:/Users/Administrator/Desktop/开发/trade_Log.txt"); 
 		if(!file.exists())    
 		{    
@@ -68,6 +67,7 @@ public class meanComplex implements strateguInterface {
 	public void init(float money) {
 		// TODO Auto-generated method stub
 		asset.setMoney(money);
+		asset.setMode(asset.noOutput);
 		moneyInc = 0;
 		priceInc = 0;
 		price.clear();
@@ -121,7 +121,8 @@ public class meanComplex implements strateguInterface {
 		boolean sellSingle = getSellSingle(size);
 		float priceToday = price.get(size);
 		if(buySingle){
-			System.out.println (date.get(size) + "	: [buy] " + tableName + " | price = " + priceToday);
+			String LogInfo = date.get(size) + "	: [buy] " + tableName + " | price = " + priceToday;
+			System.out.println (LogInfo);
 		}
 		else if(sellSingle){
 			System.out.println (date.get(size) + "	: [sell] "+ tableName + " | price = " + priceToday);
@@ -155,7 +156,6 @@ public class meanComplex implements strateguInterface {
 			for(int index = size - 5; index <= size ; index ++){
 				strategyResult(date, tableName, fileWriter, index);
 			}
-			
 			
 			tomorrowSuggest(size, fileWriter);
 			
@@ -231,15 +231,22 @@ public class meanComplex implements strateguInterface {
 		}
 		
 		for(int index = 1; index < size; index ++){
-			boolean buySingle = getBuySingle(index);		
-			boolean sellSingle = getSellSingle(index);
-		
+//			boolean buySingle = getBuySingle(index);		
+//			boolean sellSingle = getSellSingle(index);
+
+			boolean buySingle = getBuySingle(index) && !have_buy;		
+			boolean sellSingle = getSellSingle(index) && !have_sell;
 			if(buySingle){
+				have_sell = false;
+				have_buy = true;
+
 				float  priceNow = price.get(index);
 				String dateNow = myDate.get(index);
 				asset.buy(priceNow, dateNow);
 			}
 			else if(sellSingle){
+				have_sell = true;
+				have_buy = false;
 				float  priceNow = price.get(index);
 				String dateNow = myDate.get(index);
 				asset.sell(priceNow, dateNow);

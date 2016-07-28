@@ -17,7 +17,7 @@ public class AssetCombinationMgr {
 	public final int outputResult = 3;
 	public final int noOutput     = 4;
 	
-	private int myMode = noOutput;
+	private int myMode = outputAll;
 	
 	// 交易模式
 	public final int dealMean = 5;

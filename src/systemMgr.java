@@ -17,6 +17,7 @@ import strategy.classicMacd;
 import strategy.mean;
 
 import strategy.meanComplex;
+import strategy.T_T2;
 import strategy.strateguInterface;
 
 public class systemMgr {
@@ -43,7 +44,8 @@ public class systemMgr {
 	//private strateguInterface strategy = new classicKDJ(moneyInit);
 	//private strateguInterface strategy = new mean(moneyInit);
 	//private mean strategy = new mean(moneyInit);
-	private meanComplex strategy = new meanComplex(moneyInit);
+	//private meanComplex strategy = new meanComplex(moneyInit);
+	private T_T2 strategy = new T_T2(moneyInit);
 
 	private List<String> stockName = new ArrayList<String>();
 	
@@ -74,7 +76,8 @@ public class systemMgr {
 		//MACD_calc(tableName);
 		//MeanComplex_calc(tableName);
 		//MeanComplex_calcToday(tableName);
-		MeanComplex_calcAllToday(tableName);
+		//MeanComplex_calcAllToday(tableName);
+		T_T2_calc(tableName);
 		
 		comm.disConnect();
 		System.out.println ("end work !! "); 
@@ -99,9 +102,6 @@ public class systemMgr {
 				+ " where ( 日期 > '" + startDate +"') ";
 		}
 
-		
-		
-		
 		ResultSet retn = comm.query(sql);
 		try{
 			priceAndDate tmp = new priceAndDate();
@@ -142,29 +142,45 @@ public class systemMgr {
 	}
 	
 	private void MeanComplex_calcToday(List<String> tableName) {
-		int size = tableName.size();
-
-		//report.setHeadInfo("[MeanComplex] anaylze data: we calc data num:	"+ size + "	");
-		for(int index = 0 ; index < size; index ++){
- 			String tableNameTmp = tableName.get(index);
-			strategy.init(moneyInit);
-			priceAndDate obj = code_price_map.get(tableNameTmp);	
-			strategy.calcToday(obj.inputData, obj.date, tableNameTmp);
-		}
+//		int size = tableName.size();
+//
+//		//report.setHeadInfo("[MeanComplex] anaylze data: we calc data num:	"+ size + "	");
+//		for(int index = 0 ; index < size; index ++){
+// 			String tableNameTmp = tableName.get(index);
+//			strategy.init(moneyInit);
+//			priceAndDate obj = code_price_map.get(tableNameTmp);	
+//			strategy.calcToday(obj.inputData, obj.date, tableNameTmp);
+//		}
 	}
 	private void MeanComplex_calcAllToday(List<String> tableName) {
 		int size = tableName.size();
 
 		//report.setHeadInfo("[MeanComplex] anaylze data: we calc data num:	"+ size + "	");
-		for(int index = 0 ; index < size; index ++){
- 			String tableNameTmp = tableName.get(index);
- 			String stockNameTmp = stockName.get(index);
-			strategy.init(moneyInit);
-			priceAndDate obj = code_price_map.get(tableNameTmp);	
-			strategy.calcAllToday(obj.inputData, obj.date, stockNameTmp);
-		}
+//		for(int index = 0 ; index < size; index ++){
+// 			String tableNameTmp = tableName.get(index);
+// 			String stockNameTmp = stockName.get(index);
+//			strategy.init(moneyInit);
+//			priceAndDate obj = code_price_map.get(tableNameTmp);	
+//			strategy.calcAllToday(obj.inputData, obj.date, stockNameTmp);
+//		}
 	}
 
+	private void T_T2_calc(List<String> tableName) {
+		int size = tableName.size();
+
+		for (int day = 2; day < 60; day ++){
+			report.setHeadInfo("[T_T2 " + day +"] anaylze data: we calc data num:	"
+					+ size + "	");
+			for(int index = 0 ; index < size; index ++){
+	 			String tableNameTmp = tableName.get(index);
+	 			strategy.setTday(day);
+				analyseData(tableNameTmp);
+			}
+			report.getReport();
+		}
+	}
+	
+	
 	private void Mean_calc(List<String> tableName) {
 //		int size = tableName.size();
 //		for (int tmp = 2; tmp < 120; tmp ++){

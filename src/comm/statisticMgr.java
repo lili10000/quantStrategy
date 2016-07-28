@@ -23,7 +23,7 @@ public class statisticMgr {
 	//public final int onlyPrint    	   = 2;
 	public final int onlyWriteFile     = 3;
 	
-	private int myMode = onlyWriteFile;
+	private int myMode = printAndWriteFile;
 	
 	File file = new File("C:/Users/Administrator/Desktop/开发/quantReport.txt");
 	

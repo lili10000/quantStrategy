@@ -14,8 +14,8 @@ public class StockChoise {
 		//bankStock();  //银行
 		//alcoholStock(); //酒
 		//assuranceStock(); //保险
-		myselfStock();
-		//StockChoise.add("k_d_603288");
+		//myselfStock();
+		StockChoise.add("k_d_" + "000001");
 		//StockChoise.add("k_d_002039");
 		//StockChoise.add("k_d_600674");
 		//StockChoise.add("k_d_600519");
@@ -23,18 +23,16 @@ public class StockChoise {
 	}
 	private void myselfStock(){
 		//自持有
-		StockChoise.add("k_d_600309");
-		StockChoise.add("k_d_300124");
-		StockChoise.add("k_d_002169");
-		
-		StockChoise.add("k_d_600196");
-		StockChoise.add("k_d_300146");
-		StockChoise.add("k_d_600535");		
-		StockChoise.add("k_d_600519");
+		StockChoise.add("k_d_" + "600309");
+		StockChoise.add("k_d_" + "002169");
 
-		StockChoise.add("k_d_600674");
-		StockChoise.add("k_d_002053");
-		StockChoise.add("k_d_000970");
+		StockChoise.add("k_d_" + "600196");
+		StockChoise.add("k_d_" + "600535");
+		StockChoise.add("k_d_" + "600519");
+		
+		StockChoise.add("k_d_" + "600674");
+		StockChoise.add("k_d_" + "002053");
+		StockChoise.add("k_d_" + "000970");
 
 	}
 	
